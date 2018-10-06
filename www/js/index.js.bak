@@ -16,43 +16,37 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-(function () {
-    "use strict";
-
-    document.addEventListener('deviceready', onDeviceReady.bind(this), false);
-    document.getElementById('btnCalculate').addEventListener('click', onCalculate.bind(this), false);
-
+var app = {
+    // Application Constructor
+    initialize: function() {
+        this.bindEvents();
+    },
+    // Bind Event Listeners
+    //
+    // Bind any events that are required on startup. Common events are:
+    // 'load', 'deviceready', 'offline', and 'online'.
+    bindEvents: function() {
+        document.addEventListener('deviceready', this.onDeviceReady, false);
+        document.getElementById('btnCalculate').addEventListener('click',this.onCalculate, false);
+    },
     // deviceready Event Handler
     //
     // The scope of 'this' is the event. In order to call the 'receivedEvent'
     // function, we must explicitly call 'app.receivedEvent(...);'
-   function onDeviceReady() {
-        // Handle the Cordova pause and resume events
-        document.addEventListener( 'pause', onPause.bind( this ), false );
-        document.addEventListener('resume', onResume.bind(this), false);
-        document.addEventListener('backbutton', onBack.bind(this), false);
-
-        // TODO: Cordova has been loaded. Perform any initialization that requires Cordova here.
-        var parentElement = document.getElementById('deviceready');
+    onDeviceReady: function() {
+        app.receivedEvent('deviceready');
+    },
+    // Update DOM on a Received Event
+    receivedEvent: function(id) {
+        var parentElement = document.getElementById(id);
         var listeningElement = parentElement.querySelector('.listening');
         var receivedElement = parentElement.querySelector('.received');
+
         listeningElement.setAttribute('style', 'display:none;');
         receivedElement.setAttribute('style', 'display:block;');
-    };
 
-    function onBack() {
-        var val = confirm("Are you sure that you want to exit the application?");
-        if (val == true)
-            navigator.app.exitApp();
-    };
-
-    function onPause() {
-        // TODO: This application has been suspended. Save application state here.
-    };
-
-    function onResume() {
-        // TODO: This application has been reactivated. Restore application state here.
-    };
+        console.log('Received Event: ' + id);
+    }
     
    function onCalculate() {
     var b = document.getElementById('leng').value;
