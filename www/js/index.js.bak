@@ -16,50 +16,54 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-var app = {
-    // Application Constructor
-    initialize: function() {
-        this.bindEvents();
-    },
-    // Bind Event Listeners
-    //
-    // Bind any events that are required on startup. Common events are:
-    // 'load', 'deviceready', 'offline', and 'online'.
-    bindEvents: function() {
-        document.addEventListener('deviceready', this.onDeviceReady, false);
-        document.getElementById('btnCalculate').addEventListener('click',this.onCalculate, false);
-    },
+(function () {
+    "use strict";
+
+    document.addEventListener('deviceready', onDeviceReady.bind(this), false);
+    document.getElementById('btnCalculate').addEventListener('click', onCalculate.bind(this), false);
+
     // deviceready Event Handler
     //
     // The scope of 'this' is the event. In order to call the 'receivedEvent'
     // function, we must explicitly call 'app.receivedEvent(...);'
-    onDeviceReady: function() {
-        app.receivedEvent('deviceready');
-    },
-    // Update DOM on a Received Event
-    receivedEvent: function(id) {
-        var parentElement = document.getElementById(id);
+   function onDeviceReady() {
+        // Handle the Cordova pause and resume events
+        document.addEventListener( 'pause', onPause.bind( this ), false );
+        document.addEventListener('resume', onResume.bind(this), false);
+        document.addEventListener('backbutton', onBack.bind(this), false);
+
+        // TODO: Cordova has been loaded. Perform any initialization that requires Cordova here.
+        var parentElement = document.getElementById('deviceready');
         var listeningElement = parentElement.querySelector('.listening');
         var receivedElement = parentElement.querySelector('.received');
-
         listeningElement.setAttribute('style', 'display:none;');
         receivedElement.setAttribute('style', 'display:block;');
+    };
 
-        console.log('Received Event: ' + id);
-    }
+    function onBack() {
+        var val = confirm("Are you sure that you want to exit the application?");
+        if (val == true)
+            navigator.app.exitApp();
+    };
+
+    function onPause() {
+        // TODO: This application has been suspended. Save application state here.
+    };
+
+    function onResume() {
+        // TODO: This application has been reactivated. Restore application state here.
+    };
     
    function onCalculate() {
-    var b = document.getElementById('leng').value;
-    var h = document.getElementById('bred').value;
-    if(b.length == 0 || h.length == 0)
+    var a = document.getElementById('temp').value;
+    if(a.length == 0)
     document.getElementById('res').innerHTML = 'Error: Please fill all the fields.';
-    else if (b==0 || h==0) 
+    else if (a==0) 
     document.getElementById('res').innerHTML = 'Error: Please enter valid values.';
     else {
-    var x = parseInt(b);
-    var y = parseInt(h);
-    var area = x * y;
-    document.getElementById('res').innerHTML = 'Area = ' + area;
+    var x = parseInt(a);
+    var f = (9/5)*x+32;
+    document.getElementById('res').innerHTML = 'Temperature in fahrenhite = ' +f;
         }
     }
 

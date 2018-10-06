@@ -55,17 +55,15 @@
     };
     
    function onCalculate() {
-    var b = document.getElementById('leng').value;
-    var h = document.getElementById('bred').value;
-    if(b.length == 0 || h.length == 0)
+    var a = document.getElementById('temp').value;
+    if(a.length == 0)
     document.getElementById('res').innerHTML = 'Error: Please fill all the fields.';
-    else if (b==0 || h==0) 
+    else if (a==0) 
     document.getElementById('res').innerHTML = 'Error: Please enter valid values.';
     else {
-    var x = parseInt(b);
-    var y = parseInt(h);
-    var area = x * y;
-    document.getElementById('res').innerHTML = 'Area = ' + area;
+    var x = parseInt(a);
+    var f = (9/5)*x+32;
+    document.getElementById('res').innerHTML = 'Temperature in fahrenhite = ' +f +'<sup>o</sup>F';
         }
     }
 
