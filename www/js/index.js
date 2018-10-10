@@ -1,36 +1,41 @@
-/*
- * Licensed to the Apache Software Foundation (ASF) under one
- * or more contributor license agreements.  See the NOTICE file
- * distributed with this work for additional information
- * regarding copyright ownership.  The ASF licenses this file
- * to you under the Apache License, Version 2.0 (the
- * "License"); you may not use this file except in compliance
- * with the License.  You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing,
- * software distributed under the License is distributed on an
- * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- * KIND, either express or implied.  See the License for the
- * specific language governing permissions and limitations
- * under the License.
- */
+﻿// For an introduction to the Blank template, see the following documentation:
+// http://go.microsoft.com/fwlink/?LinkID=397704
+// To debug code on page load in cordova-simulate or on Android devices/emulators: launch your app, set breakpoints, 
+// and then run "window.location.reload()" in the JavaScript Console.
 (function () {
     "use strict";
+    if ($.isWin) {
+        document.getElementById('themeStylesheet').setAttribute('href', '/css/chui-win-3.9.2.css');
+    }
+    else if ($.isAndroid) {
+        document.getElementById('themeStylesheet').setAttribute('href', '/css/chui-android-3.9.2.css');
+    }
+    else if ($.isiOS) {
+        document.getElementById('themeStylesheet').setAttribute('href', '/css/chui-ios-3.9.2.css');
+    }
+    else {
+        document.getElementById('themeStylesheet').setAttribute('href', '/css/chui-win-3.9.2.css');
+    }
 
-    document.addEventListener('deviceready', onDeviceReady.bind(this), false);
-    document.getElementById('btnCalculate').addEventListener('click', onCalculate.bind(this), false);
 
-    // deviceready Event Handler
-    //
-    // The scope of 'this' is the event. In order to call the 'receivedEvent'
-    // function, we must explicitly call 'app.receivedEvent(...);'
-   function onDeviceReady() {
+    var tabbarOP = {
+        tabs: 4,
+        icons: ["home", "drinks", "cakes", "pizzas"],
+        labels: ["Home", "Drinks", "Cakes", "Pizzas"],
+        selected: 1
+    };
+
+
+
+
+
+    document.addEventListener( 'deviceready', onDeviceReady.bind( this ), false );
+
+    function onDeviceReady() {
         // Handle the Cordova pause and resume events
         document.addEventListener( 'pause', onPause.bind( this ), false );
         document.addEventListener('resume', onResume.bind(this), false);
-        document.addEventListener('backbutton', onBack.bind(this), false);
+        $.UItabbar(tabbarOP);
 
         // TODO: Cordova has been loaded. Perform any initialization that requires Cordova here.
         var parentElement = document.getElementById('deviceready');
@@ -40,12 +45,6 @@
         receivedElement.setAttribute('style', 'display:block;');
     };
 
-    function onBack() {
-        var val = confirm("Are you sure that you want to exit the application?");
-        if (val == true)
-            navigator.app.exitApp();
-    };
-
     function onPause() {
         // TODO: This application has been suspended. Save application state here.
     };
@@ -53,18 +52,4 @@
     function onResume() {
         // TODO: This application has been reactivated. Restore application state here.
     };
-    
-   function onCalculate() {
-    var a = document.getElementById('temp').value;
-    if(a.length == 0)
-    document.getElementById('res').innerHTML = 'Error: Please fill all the fields.';
-    else if (a==0) 
-    document.getElementById('res').innerHTML = 'Error: Please enter valid values.';
-    else {
-    var x = parseInt(a);
-    var f = (9/5)*x+32;
-    document.getElementById('res').innerHTML = 'Temperature in fahrenhite = ' +f +'<sup>o</sup>F';
-        }
-    }
-
-})();
+} )();
