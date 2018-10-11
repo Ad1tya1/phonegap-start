@@ -5,16 +5,16 @@
 (function () {
     "use strict";
     if ($.isWin) {
-        document.getElementById('themeStylesheet').setAttribute('href', '/css/chui-win-3.9.2.css');
+        document.getElementById('themeStylesheet').setAttribute('href', './css/chui-win-3.9.2.css');
     }
     else if ($.isAndroid) {
-        document.getElementById('themeStylesheet').setAttribute('href', '/css/chui-android-3.9.2.css');
+        document.getElementById('themeStylesheet').setAttribute('href', './css/chui-android-3.9.2.css');
     }
     else if ($.isiOS) {
-        document.getElementById('themeStylesheet').setAttribute('href', '/css/chui-ios-3.9.2.css');
+        document.getElementById('themeStylesheet').setAttribute('href', './css/chui-ios-3.9.2.css');
     }
     else {
-        document.getElementById('themeStylesheet').setAttribute('href', '/css/chui-win-3.9.2.css');
+        document.getElementById('themeStylesheet').setAttribute('href', './css/chui-win-3.9.2.css');
     }
 
 
